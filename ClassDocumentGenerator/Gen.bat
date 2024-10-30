@@ -1,0 +1,1 @@
+.\ClassDocumentGenerator.exe .\#workspace\src .\#workspace\out -findCaller

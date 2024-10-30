@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
+        <RunPostBuildEvent>Always</RunPostBuildEvent>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <Prefer32bit>true</Prefer32bit>
+        <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <Prefer32bit>true</Prefer32bit>
+        <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DocumentFormat.OpenXml" Version="2.18.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="AxInterop.HWPCONTROLLib">
+            <HintPath>..\External\AxInterop.HWPCONTROLLib.dll</HintPath>
+        </Reference>
+        <Reference Include="Interop.HWPCONTROLLib">
+            <HintPath>..\External\Interop.HWPCONTROLLib.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Base" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Base\BaseDocumentHwp.hwp">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Base\BaseDocumentHwp_Style.hwp">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Base\BaseDocumentHwp_Group.hwp">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="#workspace\src\.gendoc_exclude">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Gen.bat">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Base\BaseDocumentDocx_Style.docx">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CallerFinder\CallerFinder.csproj" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="xcopy /y /s $(TargetDir)*.* ..\build\$(ProjectName) " />
+    </Target>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="xcopy /y /s ..\External\FilePathCheckerModuleExample.dll $(ProjectDir)$(OutDir)" />
+    </Target>
+
+</Project>

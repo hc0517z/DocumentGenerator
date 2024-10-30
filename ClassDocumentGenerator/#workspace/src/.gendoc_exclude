@@ -1,0 +1,8 @@
+obj\
+bin\
+Properties\
+Tests\
+SOLETOP.AVTS.Host.Abstract\
+SOLETOP.AVTS.Host.Urs\
+Soletop.Framework\
+SOLETOP.AVTS.Main.Console\

@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <Prefer32bit>true</Prefer32bit>
+        <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <Prefer32bit>true</Prefer32bit>
+        <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Assets\Doc\SPS_Base_Exe.hwp">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Assets\Doc\SPS_Base_Raw.hwp">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0"/>
+        <PackageReference Include="CsvHelper" Version="30.0.1"/>
+        <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39"/>
+        <PackageReference Include="System.IO.Hashing" Version="7.0.0"/>
+        <PackageReference Include="WPF-UI" Version="2.1.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Assets\Fonts\KoPubWorld Dotum_Pro Bold.otf"/>
+        <Resource Include="Assets\Fonts\KoPubWorld Dotum_Pro Light.otf"/>
+        <Resource Include="Assets\Fonts\KoPubWorld Dotum_Pro Medium.otf"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="AxInterop.HWPCONTROLLib">
+            <HintPath>..\External\AxInterop.HWPCONTROLLib.dll</HintPath>
+        </Reference>
+        <Reference Include="Interop.HWPCONTROLLib">
+            <HintPath>..\External\Interop.HWPCONTROLLib.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="xcopy /y /s ..\External\FilePathCheckerModuleExample.dll $(ProjectDir)$(OutDir)"/>
+    </Target>
+
+</Project>
